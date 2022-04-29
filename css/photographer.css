@@ -74,3 +74,108 @@ form input {
     border: none;
     border-radius: 5px;
 }
+
+#main #photograph-header img {
+    position: absolute;
+    top: auto;
+    object-fit: cover;
+    border-radius: 100%;
+    height: 200px;
+    width: 200px;
+    right: 4%;
+    box-shadow: 0px 4px 12px rgb(0 0 0 / 25%);
+}
+
+.contact_button {
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    top: 20%;
+    bottom: 20%;
+    background: #911c1c;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 11px;
+    width: 170px;
+    height: 70px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#main #photograph-header {
+    position: relative;
+    height: 200px;
+    margin: 0 100px 0 100px;
+    background-color: #FAFAFA;
+    padding: 50px;
+}
+
+select {
+    margin-top: 7px;
+    margin-left: 200px;
+    color: white;
+    background-color: #901C1C;
+    height: 50px;
+    width: 170px;
+    left: 0px;
+    top: 0px;
+    border-radius: 5px;
+    font-family: DM Sans;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 23px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+#main #photograph-header h2 {
+    color: #D3573C;
+    font-weight: 400;
+    font-size: 64px;
+    margin: 0;
+    max-width: 100%;
+}
+
+#main #photograph-header #localisation {
+    color: #901C1C;
+    font-size: 24px;
+    margin: 0 0 19px 0;
+}
+
+#main #photograph-header #tagline {
+    font-size: 18px;
+    margin: 0 0 15px 0;
+    color: #525252;
+}
+
+#choice-title {
+    position: absolute;
+    width: 74px;
+    height: 23px;
+    left: 97px;
+    top: 420px;
+    font-family: "DM Sans";
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 23px;
+    color: #000000;
+}
+
+.infos {
+    position: fixed;
+    bottom: -5px;
+    right: 2%;
+    background-color: #DB8876;
+    width: 376px;
+    height: 60px;
+    border-radius: 5px;
+    font-size: 24px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    transition: 0.5s ease-in-out;
+}

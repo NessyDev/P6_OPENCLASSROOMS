@@ -75,3 +75,82 @@ h1 {
     font-weight: 400;
     text-align: center;
     margin: 4px 0 0 0;
+}
+
+
+
+#gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 70px;
+    margin-top: 100px;
+    margin-bottom: 60px;
+}
+
+#gallery article {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#gallery article .cardtext {
+    display: flex;
+    width: 100%;
+    margin: 20px 0 0 0;
+    justify-content: space-between;
+    color: #901C1C;
+}
+
+#gallery article a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#gallery article img,#gallery article video {
+    cursor: pointer;
+    object-fit: cover;
+    height: 300px;
+    width: 350px;
+    border-radius: 5px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+#gallery article img:focus {
+    outline: 0;
+    box-shadow: 0 0 0 6px rgba(255, 81, 0, 0.5);
+}
+
+#gallery article video:focus {
+    outline: 0;
+    box-shadow: 0 0 0 6px rgba(255, 81, 0, 0.5);
+}
+
+#gallery article h2 {
+    display: flex;
+    font-weight: 400;
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+#gallery article .likes {
+    display: flex;
+}
+
+#gallery article .likes .likes-number {
+    font-weight: 400;
+    font-size: 24px;
+    padding-right: 5px;
+}
+
+#gallery article .likes button {
+    margin: 0px;
+    border-radius: 5px;
+    background: no-repeat;
+    background-position: center center;
+    border: none;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}

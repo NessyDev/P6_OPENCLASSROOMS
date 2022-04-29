@@ -35,7 +35,7 @@
 
 
 
-        fetch('data/photographers.json')
+        fetch ('data/photographers.json')
             .then (res => {
                 return (res.json())
             }) 
