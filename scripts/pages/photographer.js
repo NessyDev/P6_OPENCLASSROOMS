@@ -8,7 +8,7 @@ let selectedPhotographer = [];
 let index = 0;
 
 
-// Fetch photographer + medias
+// Fetch photographer
 
 let photographers = fetch("data/photographers.json")
   .then((response) => response.json())
@@ -16,6 +16,19 @@ let photographers = fetch("data/photographers.json")
     let photographers = data.photographers;
     let medias = data.medias;
   
+
+
+
+
+
+//Fetch médias
+
+async function getMedias() {
+    let medias = await fetch("data/photographers.json")
+      .then((response) => response.json())
+      .then((data) => data.media);
+    return medias;
+}
 
 //Fonctions
 
@@ -37,7 +50,9 @@ async function init() {
     let content = document.getElementById("photograph-header");
     content.appendChild(photographerHeader(photographers[index]));
 
-   
+    ///   ajout des medias ///
+
+    let medias = await getMedias();
     
    let choosenGallery = medias.filter(
         (item) =>
@@ -142,7 +157,7 @@ let displayMedia = (mediaArray, photographer) => {
 
 //Fonction qui lance les tâches à effectuer
 
-function init() {
+async function init() {
   
 
 // recherche de l'id dans la barre d'adresse
@@ -161,8 +176,8 @@ index = photographers.indexOf(selectedPhotographer);
 let content = document.getElementById("photograph-header");
 content.appendChild(photographerHeader(photographers[index]));
 
-
-
+  ///   ajout des medias ///
+let medias = await getMedias();
   
 let choosenGallery = medias.filter(
   (item) =>
