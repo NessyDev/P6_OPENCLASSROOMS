@@ -190,6 +190,7 @@ let choosenGallery = medias.filter(
 
   displayMedia(choosenGallery, photographers[index]); // construction  pattern factory method
   initTotalLikes(choosenGallery); 
+  lightboxFunction();
   
   
  
@@ -256,6 +257,7 @@ selectMenu.addEventListener("change", () => {
 // LIGHT BOX
 
 function lightboxFunction() {
+
   let mediaList = document.querySelectorAll(".thumbnail");
   let lightboxBackground = document.querySelector("#lightbox-background");
   let lightboxClose = document.querySelector("#lightbox-close");
@@ -266,6 +268,7 @@ function lightboxFunction() {
 
   mediaList.forEach((media) => {
     media.addEventListener('keydown', (event) => {
+      
       if (event.code == 'Enter') {
       if (media.image){lightboxBackground.querySelector("#imageFS").src = media.src;lightboxBackground.querySelector("#imageFS").focus();}
       else{lightboxBackground.querySelector("#videoFS").src = media.src;
@@ -278,11 +281,13 @@ function lightboxFunction() {
       mediaIndex = Array.from(mediaList).indexOf(choosenMedia);
       lightboxBackground.style.display = "block";
       }
+
     });
   });
 
   
   mediaList.forEach((media) => {
+
     media.addEventListener("click", () => {
       lightboxBackground.querySelector("#imageFS").src = media.src;
       let choosenMedia = Array.from(mediaList).find(
@@ -292,6 +297,7 @@ function lightboxFunction() {
       console.log("mediaIndex", mediaIndex);
       lightboxBackground.style.display = "block";
     });
+
   });
 
 
@@ -301,10 +307,9 @@ function lightboxFunction() {
   // fonction previous & next
   
   function PreviousNextInit() {
+
     if (tableGallery[mediaIndex].image) {
-      lightboxBackground.querySelector(
-        "#imageFS"
-      ).src = `assets/photographers_profiles/${selectedPhotographer.name}/${tableGallery[mediaIndex].image}`;
+      lightboxBackground.querySelector("#imageFS").src = `assets/photographers_profiles/${selectedPhotographer.name}/${tableGallery[mediaIndex].image}`;
       lightboxBackground.querySelector("#imageFS").alt =
       tableGallery[mediaIndex].title;
       lightboxBackground.querySelector("#videoFS").src = "";
