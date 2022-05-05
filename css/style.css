@@ -154,3 +154,30 @@ h1 {
     height: 32px;
     cursor: pointer;
 }
+
+
+/* lightbox */
+
+#lightbox-background img {
+    display: flex;
+    margin: auto;
+    margin-top: 30px;
+    max-width: 60%;
+    max-height: 90%;
+}
+
+#lightbox-background {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #901C1C;
+    font-size: 100px;
+}
+
+

@@ -190,7 +190,7 @@ let choosenGallery = medias.filter(
 
   displayMedia(choosenGallery, photographers[index]); // construction  pattern factory method
   initTotalLikes(choosenGallery); 
-  counterFunction(); 
+  
   
  
 }
@@ -207,41 +207,6 @@ function initTotalLikes(choosenGallery) {
   numberTotalLikes.innerText = totallikes;
 }
 
-function counterFunction() {
-  const allHearts = document.querySelectorAll('.heart-button');
-  const numberTotalLikes = document.getElementById('');
-
-  allHearts.forEach((heart) => {
-    const likes = heart.parentElement;
-    let likesCount = likes.innerText;
-    let totallikes;
-
-    const refreshCount = () => {
-      likes.firstElementChild.innerText = likesCount;
-      numberTotalLikes.innerText = totallikes;
-    };
-
-    heart.addEventListener('click', () => {
-      if (heart.classList.contains('unliked')) {
-        // console.log("il y a eu un click");
-        totallikes = Number(numberTotalLikes.innerText); // pour initialiser
-        heart.classList.remove('unliked');
-        heart.style.backgroundImage = 'url(assets/icons/light_red_heart.svg)';
-        likesCount++;
-        // console.log(likesCount);
-        totallikes++;
-      } else {
-        // console.log("il y a eu un deuxième click");
-        heart.classList.add('unliked');
-        heart.style.backgroundImage = 'url(assets/icons/dark_red_heart.svg)';
-        likesCount--;
-        // console.log(likesCount);
-        totallikes--;
-      }
-      refreshCount();
-    });
-  });
-}
 
 //Action de Filtrage
 
@@ -255,12 +220,12 @@ async function selectLikes() {
 
 async function selectDates() {
   tableGallery.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
-  await rebuildGallery();
+  displayMedia(tableGallery, photographers[index]);
 }
 
 async function selectTitles() {
   tableGallery.sort((a, b) => a.title.localeCompare(b.title));
-  await rebuildGallery();
+  displayMedia(tableGallery, photographers[index]);
 }
 
 // Valide l'action de fitrage lors de la selection
@@ -284,3 +249,128 @@ selectMenu.addEventListener("change", () => {
 });
 
 })
+
+
+
+
+// LIGHT BOX
+
+function lightboxFunction() {
+  let mediaList = document.querySelectorAll(".thumbnail");
+  let lightboxBackground = document.querySelector("#lightbox-background");
+  let lightboxClose = document.querySelector("#lightbox-close");
+  let lightboxPrevious = document.querySelector("#lightbox-previous");
+  let lightboxNext = document.querySelector("#lightbox-next");
+  let mediaIndex = 0;
+
+
+  mediaList.forEach((media) => {
+    media.addEventListener('keydown', (event) => {
+      if (event.code == 'Enter') {
+      if (media.image){lightboxBackground.querySelector("#imageFS").src = media.src;lightboxBackground.querySelector("#imageFS").focus();}
+      else{lightboxBackground.querySelector("#videoFS").src = media.src;
+      lightboxBackground.querySelector("#videoFS").setAttribute("controls","true")};
+      lightboxBackground.querySelector("#videoFS").focus();
+      lightboxBackground.querySelector("#imageFS").src ="";
+      let choosenMedia = Array.from(mediaList).find(
+        (item) => item.src === media.src
+      );
+      mediaIndex = Array.from(mediaList).indexOf(choosenMedia);
+      lightboxBackground.style.display = "block";
+      }
+    });
+  });
+
+  
+  mediaList.forEach((media) => {
+    media.addEventListener("click", () => {
+      lightboxBackground.querySelector("#imageFS").src = media.src;
+      let choosenMedia = Array.from(mediaList).find(
+        (item) => item.src === media.src
+      );
+      mediaIndex = Array.from(mediaList).indexOf(choosenMedia);
+      console.log("mediaIndex", mediaIndex);
+      lightboxBackground.style.display = "block";
+    });
+  });
+
+
+
+
+
+  // fonction previous & next
+  
+  function PreviousNextInit() {
+    if (tableGallery[mediaIndex].image) {
+      lightboxBackground.querySelector(
+        "#imageFS"
+      ).src = `assets/photographers_profiles/${selectedPhotographer.name}/${tableGallery[mediaIndex].image}`;
+      lightboxBackground.querySelector("#imageFS").alt =
+      tableGallery[mediaIndex].title;
+      lightboxBackground.querySelector("#videoFS").src = "";
+      lightboxBackground.querySelector("#videoFS").removeAttribute("controls");
+      lightboxBackground.querySelector("#videoFS").alt = "";
+      lightboxBackground.querySelector("#imageFS").display = "flex";
+    } else {
+      lightboxBackground.querySelector(
+        "#videoFS"
+      ).src = `assets/photographers_profiles/${selectedPhotographer.name}/${tableGallery[mediaIndex].video}`;
+      lightboxBackground.querySelector("#videoFS").alt =
+      tableGallery[mediaIndex].title;
+      
+      lightboxBackground.querySelector("#videoFS").controls = "true";
+      lightboxBackground.querySelector("#imageFS").src = "";
+      lightboxBackground.querySelector("#imageFS").alt = "";
+      lightboxBackground.querySelector("#videoFS").display = "flex";
+    }
+  }
+
+  function Next() {
+    if (mediaIndex < mediaList.length - 1) {
+      mediaIndex++;
+      PreviousNextInit();
+    }
+  }
+
+  function Previous() {
+    if (mediaIndex > 0) {
+      mediaIndex--;
+      PreviousNextInit();
+    }
+  }
+
+  function Close() {
+    lightboxBackground.style.display = "none";
+  }
+
+
+
+  // lancements des events dans la lightbox souris & clavier
+
+  lightboxClose.addEventListener("click", () => {
+    Close();
+  });
+   document.addEventListener("keydown", (event) => {
+     if (event.code === "Escape") {
+       Close();closeModal();
+    }
+   });
+
+  lightboxNext.addEventListener("click", () => {
+    Next();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.code === "ArrowRight") {
+      Next();
+    }
+  });
+
+  lightboxPrevious.addEventListener("click", () => {
+    Previous();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.code === "ArrowLeft") {
+      Previous();
+    }
+  });
+}
