@@ -191,6 +191,8 @@ let choosenGallery = medias.filter(
   displayMedia(choosenGallery, photographers[index]); // construction  pattern factory method
   initTotalLikes(choosenGallery); 
   lightboxFunction();
+  counterFunction();
+  
   
   
  
@@ -220,7 +222,8 @@ async function selectLikes() {
 }
 
 async function selectDates() {
-  tableGallery.sort((a, b) => Date.parse(a.date) - Date.parse(b.date));
+  console.log ("selectDates")
+  tableGallery.sort((a, b) => new Date(a.date) - new Date(b.date));
   displayMedia(tableGallery, photographers[index]);
 }
 
@@ -239,7 +242,7 @@ selectMenu.addEventListener("change", () => {
     case "likes":
       selectLikes();
       break;
-    case "dates":
+    case "date":
      selectDates();
       break;
     case "title":
@@ -377,5 +380,55 @@ function lightboxFunction() {
     if (event.code === "ArrowLeft") {
       Previous();
     }
+  });
+}
+
+
+
+
+function initTotalLikes(choosenGallery) {
+  let totallikes = 0;
+  choosenGallery.forEach((item) => (totallikes += item.likes));
+
+  // console.log("total", totallikes);
+  const numberTotalLikes = document.getElementById('all-likes');
+  numberTotalLikes.innerText = totallikes;
+}
+
+function counterFunction() {
+  const allHearts = document.querySelectorAll('.heart-button');
+  const numberTotalLikes = document.getElementById('all-likes');
+
+  allHearts.forEach((heart) => {
+    const likes = heart.parentElement;
+    let likesCount = likes.innerText;
+    let totallikes;
+
+    const refreshCount = () => {
+      likes.firstElementChild.innerText = likesCount;
+      // console.log("likes.firstChild",likes.firstChild);
+      // console.log("likes.firstChild.innerText",likes.firstChild.innerText);
+      numberTotalLikes.innerText = totallikes;
+    };
+
+    heart.addEventListener('click', () => {
+      if (heart.classList.contains('unliked')) {
+        // console.log("il y a eu un click");
+        totallikes = Number(numberTotalLikes.innerText); // pour initialiser
+        heart.classList.remove('unliked');
+        heart.style.backgroundImage = 'url(assets/icons/light_red_heart.svg)';
+        likesCount++;
+        // console.log(likesCount);
+        totallikes++;
+      } else {
+        // console.log("il y a eu un deuxième click");
+        heart.classList.add('unliked');
+        heart.style.backgroundImage = 'url(assets/icons/dark_red_heart.svg)';
+        likesCount--;
+        // console.log(likesCount);
+        totallikes--;
+      }
+      refreshCount();
+    });
   });
 }
