@@ -3,11 +3,12 @@
 
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="css/photographer.css">
+  
     <meta charset="utf-8">
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon_16X16.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
     <title>Fisheye - photographe </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
 
   <body>
@@ -22,22 +23,26 @@
 
     <main id="main">
       <div class="photograph-header" id="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
+        <button class="contact_button" id="contact" onclick="launchModal()">
+          Contactez-moi
+        </button>
       </div>
-    </main>
 
     <!-- Filtres-->
 
-    <label for="choice-menu" id="choice-title" tabindex="0">
-      Trier par
-    </label>
+    <div class="filters">
+      <label for="choice-menu" id="choice-title" tabindex="0">
+        Trier par
+      </label>
 
-    <select name="choice-menu" id="choice-menu">
-      <option value="likes" onclick="selectLikes()">Popularité</option>
-      <option value="date" onclick="selectDates()">Date</option>
-      <option value="title" onclick="selectTitles()">Titre</option>
+      <select name="choice-menu" id="choice-menu">
+        <option value="likes" onclick="selectLikes()">Popularité</option>
+        <option value="date" onclick="selectDates()">Date</option>
+        <option value="title" onclick="selectTitles()">Titre</option>
 
-    </select>
+      </select>
+    
+    </div>
 
     <!-- Gallerie vide -->
 
@@ -57,7 +62,9 @@
       </div>
 
       <img id="imageFS" src="assets/images/logo.png" alt="" />
-      <video id="videoFS" src="assets/images/logo.png" title=""></video>
+      <video id="videoFS">
+        <source src="assets/images/logo.png" title="">
+      </video>
 
       <div id="lightbox-next" aria-label="bouton suivant ou touche flèche droite" tabindex="1">
         >
@@ -66,7 +73,58 @@
 
     <!-- Formulaire de contact-->
 
-    <div id="contact_modal">
+
+    <div class="bground">
+      <div class="content">
+        <!-- Croix qui ferme le formulaire -->
+        <button class="close" tabindex="0" aria-label="Bouton de fermeture du formulaire" style='background-image: url("assets/icons/close.svg")'> </button>
+        <div class="modal-body">
+          <span id="modal-title"></span>
+          <form name="reserve" action="index.html" method="get" novalidate onsubmit="validate();">
+
+            <!-- champs prénom dans le formulaire -->
+            <div class="formData" data-error="Veuillez entrer au moins deux caractères">
+
+              <label for="first">Prénom</label><br />
+              <input class="text-control" type="text" id="first" name="first" autocomplete="off" aria-label="Entrez votre prénom"/><br />
+            </div>
+
+            <!-- champs nom dans le formulaire -->
+            <div class="formData" data-error="Veuillez entrer au moins deux caractères">
+              <label for="last">Nom</label><br />
+              <input class="text-control" type="text" id="last" name="last" autocomplete="off" aria-label="Entrez votre nom"/><br />
+            </div>
+            <!-- champs email dans le formulaire -->
+            <div class="formData" data-error="le format de l'email est invalide">
+              <label for="email">E-mail</label><br />
+              <input class="text-control" type="email" id="email" name="email" aria-label="Entrez votre adresse mail"/><br />
+            </div>
+            <!-- champs texte dans le formulaire -->
+            <div class="formData" data-error="Vous devez entrer votre message">
+              <label for="textarea">Votre message</label><br />
+              <textarea class="text-control" id="textarea" rows="5" cols="50" aria-label="Tapez ici votre message"></textarea>
+            </div>
+
+            <!-- bouton c'est parti dans le formulaire -->
+            <div class="sent-message"></div>
+            <input class="btn-submit button" type="submit" value="Envoyer" />
+
+            <div class="formError" data-error="Veuillez renseigner tous les champs">
+              Veuillez renseigner tous les champs
+            </div>
+          </form>
+          <!-- ====  Confirmation envoi des données après avoir rempli le formulaire  ==== -->
+          <div class="data-sent">
+            <img alt="logo" src="assets/images/logo.png" />
+            <p>Merci ! Votre message a bien été enregistré !</p>
+            <button class="button btn-close">Fermer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!--<div id="contact_modal">
 			<div class="modal">
 				<header>
           <h2>Contactez-moi</h2>
@@ -96,7 +154,7 @@
           <button class="contact_button">Envoyer</button>
 				</form>
 			</div>
-		</div>
+		</div>-->
 
     <!-- infos likes & prix-->
     <div class="infos">
@@ -109,5 +167,6 @@
 
     <script src="/scripts/pages/photographer.js"></script>
     <script src="/scripts/utils/contactForm.js"></script>
+
   </body>
 </html>

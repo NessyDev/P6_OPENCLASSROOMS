@@ -3,6 +3,7 @@
 
 
 //Constantes
+
 let tableGallery = [];
 let selectedPhotographer = [];
 let index = 0;
@@ -16,19 +17,15 @@ let photographers = fetch("data/photographers.json")
     let photographers = data.photographers;
     let medias = data.medias;
   
-
-
-
-
-
 //Fetch médias
 
 async function getMedias() {
-    let medias = await fetch("data/photographers.json")
-      .then((response) => response.json())
-      .then((data) => data.media);
-    return medias;
+  let medias = await fetch("data/photographers.json")
+  .then((response) => response.json())
+  .then((data) => data.media);
+  return medias;
 }
+
 
 //Fonctions
 
@@ -36,32 +33,29 @@ async function init() {
 
   
   // recherche de l'id dans la barre d'adresse:
-    const queryParams = window.location.search;
-    const urlParams = new URLSearchParams(queryParams);
-    const photographerArtistId = urlParams.get("id");
+  const queryParams = window.location.search;
+  const urlParams = new URLSearchParams(queryParams);
+  const photographerArtistId = urlParams.get("id");
 
-    selectedPhotographer = photographers.find(
-        (item) => item.id == photographerArtistId
-    );
+  selectedPhotographer = photographers.find(
+   (item) => item.id == photographerArtistId
+  );
 
     
-    index = photographers.indexOf(selectedPhotographer);
+  index = photographers.indexOf(selectedPhotographer);
 
-    let content = document.getElementById("photograph-header");
-    content.appendChild(photographerHeader(photographers[index]));
+  let content = document.getElementById("photograph-header");
+  content.appendChild(photographerHeader(photographers[index]));
 
-    ///   ajout des medias ///
+  //   ajout des medias //
 
-    let medias = await getMedias();
+  let medias = await getMedias();
     
-   let choosenGallery = medias.filter(
-        (item) =>
+  let choosenGallery = medias.filter(
+    (item) =>
      // on parcourt les medias du json et on ne retient que ceux ayant le bon id
-        item.photographerId == photographerArtistId
-    );
-
-    
-   
+      item.photographerId == photographerArtistId
+  );
 
 }
 
@@ -70,35 +64,37 @@ init();
 
 
 
+
+
 //Infos du photographe dans le Header 
 
 function photographerHeader(photographer) {
-    let photographerProfile = document.createElement("article");
-    let profilePicture = document.createElement("img");
-    let photographerName = document.createElement("h2");
-    let localisation = document.createElement("p");
-    let tagline = document.createElement("p");
-    let price = document.getElementById("price");
+  let photographerProfile = document.createElement("article");
+  let profilePicture = document.createElement("img");
+  let photographerName = document.createElement("h2");
+  let localisation = document.createElement("p");
+  let tagline = document.createElement("p");
+  let price = document.getElementById("price");
   
-    price.textContent = `${photographer.price}€ / jour`;
-    profilePicture.src = `assets/photographers/${photographer.portrait}`;
-    profilePicture.alt = photographer.name;
-    photographerName.id = "artist-name";
-    photographerName.textContent = photographer.name;
-    localisation.textContent = `${photographer.city}, ${photographer.country}`;
-    localisation.id = "localisation";
-    tagline.id = "tagline";
-    tagline.textContent = photographer.tagline;
+  price.textContent = `${photographer.price}€ / jour`;
+  profilePicture.src = `assets/photographers/${photographer.portrait}`;
+  profilePicture.alt = photographer.name;
+  photographerName.id = "artist-name";
+  photographerName.textContent = photographer.name;
+  localisation.textContent = `${photographer.city}, ${photographer.country}`;
+  localisation.id = "localisation";
+  tagline.id = "tagline";
+  tagline.textContent = photographer.tagline;
   
-    photographerProfile.appendChild(profilePicture);
-    photographerProfile.appendChild(photographerName);
-    photographerProfile.appendChild(localisation);
-    photographerProfile.appendChild(tagline);
+  photographerProfile.appendChild(profilePicture);
+  photographerProfile.appendChild(photographerName);
+  photographerProfile.appendChild(localisation);
+  photographerProfile.appendChild(tagline);
   
-    return photographerProfile;
+  return photographerProfile;
 }
 
- //   Affichage des médias
+//   Affichage des médias
 
  class Media {
   constructor(media, photographer) {
@@ -138,7 +134,7 @@ function photographerHeader(photographer) {
   }
 
   video() {
-    this.video = `<video class="thumbnail" src= "assets/photographers_profiles/${this.photographer.name}/${this.media.video}" title="${this.media.title}" controls = "true" tabindex="0"></video>`;
+    this.video = `<video class="thumbnail"  tabindex="0"><source src= "assets/photographers_profiles/${this.photographer.name}/${this.media.video}" title="${this.media.title}"></video>`;
     this.init(this.video);
   }
 }
@@ -176,7 +172,9 @@ index = photographers.indexOf(selectedPhotographer);
 let content = document.getElementById("photograph-header");
 content.appendChild(photographerHeader(photographers[index]));
 
-  ///   ajout des medias ///
+
+//ajout des medias//
+
 let medias = await getMedias();
   
 let choosenGallery = medias.filter(
@@ -193,10 +191,9 @@ let choosenGallery = medias.filter(
   lightboxFunction();
   counterFunction();
   
-  
-  
- 
 }
+
+
 // FILTRAGE DES MÉDIAS
 
 //Déclaration des fonctions
@@ -432,3 +429,4 @@ function counterFunction() {
     });
   });
 }
+
